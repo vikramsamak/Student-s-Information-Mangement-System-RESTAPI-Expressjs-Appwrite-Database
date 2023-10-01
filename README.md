@@ -1,19 +1,21 @@
 
 # Student's-Information-Mangement-System
+
 ## (REST API made with the help of Expressjs & Appwrite Database)
 
 ## Prerequisite
+
 - Appwrite Account
 
 ## API Reference
 
-#### Get all student's information
+### Get all student's information
 
 ```http
   GET /getallstudentsinfo
 ```
-Returns the information of all students.
 
+Returns the information of all students.
 
 #### Get student's information from roll no
 
@@ -36,17 +38,21 @@ Returns the information of all students.
 | `name`      | `string` | **Required**. Name of student.|
 
 #### Get student's information from class
+
 ```http
   GET /getstudentinfobyclass?class
 ```
+
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
 | `class`      | `string` | **Required**. Class of student.|
 
 #### Save student's information
+
 ```http
   POST /savestudentinfo
 ```
+
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
 | `roll_no`      | `string` | **Required**. Roll No of student.|
@@ -54,9 +60,11 @@ Returns the information of all students.
 | `class`| `string` | **Required**. Class of student.|
 
 #### Update student's information by roll no
+
 ```http
-  PATCH /updatestudntinfo?roll_no
+  PATCH /updatestudentinfo?roll_no
 ```
+
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
 | `roll_no`      | `string` | **Required**. Roll No of student.|
@@ -64,9 +72,11 @@ Returns the information of all students.
 | `class`| `string` | **Required**. Class of student.|
 
 #### Delete student info by roll no
+
 ```http
-  DELETE /deletestudntinfo?roll_no
+  DELETE /deletestudentinfo?roll_no
 ```
+
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
 | `roll_no`      | `string` | **Required**. Roll No of student.|
@@ -83,13 +93,10 @@ To run this project, you will need to add the following environment variables to
 
 `ENDPOINT`
 
-
 ## Feedback
 
-If you have any feedback, please reach out to us at vikramsamak02@gmail.com
-
+If you have any feedback, please reach out to us at <vikramsamak02@gmail.com>
 
 ## Authors
 
 - [@vikramsamak](https://www.github.com/vikramsamak)
-
