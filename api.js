@@ -1,9 +1,5 @@
-import dotenv from "dotenv";
 import Express from "express";
-import { databases } from "./appwrite/appwrite.js";
-import { Query, ID } from "appwrite";
 import { StudentInfo } from "./model/dbcrud.js";
-dotenv.config();
 
 const app = Express()
 const port = 2000
