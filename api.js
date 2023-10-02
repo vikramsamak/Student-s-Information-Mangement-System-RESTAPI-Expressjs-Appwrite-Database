@@ -2,7 +2,7 @@ import Express from "express";
 import { StudentInfo } from "./model/dbcrud.js";
 
 const app = Express()
-const port = 2000
+const port = 2000 || process.env.PORT
 
 app.use(Express.json());
 
