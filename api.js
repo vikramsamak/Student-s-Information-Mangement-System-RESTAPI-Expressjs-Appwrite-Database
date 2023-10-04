@@ -1,10 +1,10 @@
 import Express from "express";
 import { StudentInfo } from "./model/dbcrud.js";
-
+import cors from 'cors';
 const app = Express()
 const port = 2000 || process.env.PORT
 
-app.use(cors());
+app.use(cors())
 app.use(Express.json());
 
 app.get('/', (req, res) => {
