@@ -50,11 +50,24 @@ app.get('/getstudentinfobyname', async (req, res) => {
     }
 })
 
-//Get student's info from class
-app.get('/getstudentinfobyclass', async (req, res) => {
+//Get student's info from standard
+app.get('/getstudentinfobystandard', async (req, res) => {
     try {
-        const class_to_find = req.query.class;
-        const result = await StudentInfo.get_student_info_by_class(class_to_find)
+        const class_to_find = req.query.standard;
+        const result = await StudentInfo.get_student_info_by_standard(class_to_find)
+        res.status(200).json({ data: result })
+    }
+    catch (error) {
+        console.log(error.message);
+        res.status(500).send("Internal server error");
+    }
+})
+
+// Get student's info from division
+app.get('/getstudentinfobydivision', async (req, res) => {
+    try {
+        const class_to_find = req.query.division;
+        const result = await StudentInfo.get_student_info_by_division(class_to_find)
         res.status(200).json({ data: result })
     }
     catch (error) {
@@ -67,7 +80,12 @@ app.get('/getstudentinfobyclass', async (req, res) => {
 app.post('/savestudentinfo', async (req, res) => {
     try {
         const studentdata = req.body;
-        const result = await StudentInfo.save_student_info(studentdata.roll_no, studentdata.name, studentdata.student_class)
+        const result = await StudentInfo.save_student_info(
+            studentdata.roll_no,
+            studentdata.name,
+            studentdata.standard,
+            studentdata.division
+        )
         res.status(200)
             .json({
                 res: "Student's info sucessfully saved.",
@@ -84,8 +102,14 @@ app.post('/savestudentinfo', async (req, res) => {
 app.patch('/updatestudentinfo', async (req, res) => {
     try {
         const roll_no_to_update = parseInt(req.query.roll_no);
-        const data_to_update = req.body;
-        const result = await StudentInfo.update_student_info(roll_no_to_update, data_to_update.name, data_to_update.student_class)
+        const studentdata = req.body;
+        const result = await StudentInfo.update_student_info(
+            roll_no_to_update,
+            studentdata.new_roll_no,
+            studentdata.name,
+            studentdata.standard,
+            studentdata.division
+        )
         res.status(200)
             .json({
                 res: "Student information sucessfully updated.",
