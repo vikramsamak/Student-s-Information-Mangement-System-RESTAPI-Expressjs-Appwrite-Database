@@ -15,8 +15,8 @@ class DatabaseCRUD {
         const allstudentinfo = await promise;
 
         const StudentInfo = allstudentinfo.documents.map((studentinfo) => {
-            const { roll_no, name, student_class } = studentinfo;
-            return { roll_no, name, student_class };
+            const { roll_no, name, standard, division } = studentinfo;
+            return { roll_no, name, standard, division };
         });
 
         return StudentInfo;
@@ -32,8 +32,8 @@ class DatabaseCRUD {
         )
         const studentinfo = await promise;
         const student_info_by_roll_no = studentinfo.documents.map((studentinfo) => {
-            const { roll_no, name, student_class } = studentinfo;
-            return { roll_no, name, student_class };
+            const { roll_no, name, standard, division } = studentinfo;
+            return { roll_no, name, standard, division };
         })
 
         return student_info_by_roll_no;
@@ -48,45 +48,61 @@ class DatabaseCRUD {
             ])
         const studentinfo = await promise;
         const student_info_by_name = studentinfo.documents.map((studentinfo) => {
-            const { roll_no, name, student_class } = studentinfo;
-            return { roll_no, name, student_class };
+            const { roll_no, name, standard, division } = studentinfo;
+            return { roll_no, name, standard, division };
         })
         return student_info_by_name;
     }
 
-    async get_student_info_by_class(student_class) {
+    async get_student_info_by_standard(standard) {
         const promise = databases.listDocuments(process.env.DATABASE_ID,
             process.env.COLLECTION_ID,
             [
-                Query.equal('student_class', student_class)
+                Query.equal('standard', standard)
             ])
         const studentinfo = await promise;
         const student_info_by_class = studentinfo.documents.map((studentinfo) => {
-            const { roll_no, name, student_class } = studentinfo;
-            return { roll_no, name, student_class };
+            const { roll_no, name, standard, division } = studentinfo;
+            return { roll_no, name, standard, division };
         })
         return student_info_by_class;
     }
 
-    async save_student_info(roll_no, name, student_class) {
+    async get_student_info_by_division(division) {
+        const promise = databases.listDocuments(process.env.DATABASE_ID,
+            process.env.COLLECTION_ID,
+            [
+                Query.equal('division', division)
+            ])
+        const studentinfo = await promise;
+        const student_info_by_class = studentinfo.documents.map((studentinfo) => {
+            const { roll_no, name, standard, division } = studentinfo;
+            return { roll_no, name, standard, division };
+        })
+        return student_info_by_class;
+    }
+
+    async save_student_info(roll_no, name, standard, division) {
         const promise = databases.createDocument(process.env.DATABASE_ID,
             process.env.COLLECTION_ID,
             ID.unique(),
             {
                 roll_no: roll_no,
                 name: name,
-                student_class: student_class
+                standard: standard,
+                division: division
             })
         const saved_student_info = await promise;
         const data = {
             roll_no: saved_student_info.roll_no,
             name: saved_student_info.name,
-            student_class: saved_student_info.student_class
+            standard: saved_student_info.standard,
+            division: saved_student_info.division
         }
         return data;
     }
 
-    async update_student_info(roll_no, name, student_class) {
+    async update_student_info(roll_no, new_roll_no, name, standard, division) {
         const get_student_by_roll_no_promise = databases.listDocuments(
             process.env.DATABASE_ID,
             process.env.COLLECTION_ID,
@@ -101,15 +117,19 @@ class DatabaseCRUD {
             process.env.COLLECTION_ID,
             current_student_info.documents[0].$id,
             {
+                roll_no: new_roll_no,
                 name: name,
-                student_class: student_class
+                standard: standard,
+                division: division,
+
             }
         )
         const updated_studentinfo = await promise;
         const data = {
             roll_no: updated_studentinfo.roll_no,
             name: updated_studentinfo.name,
-            student_class: updated_studentinfo.student_class
+            standard: updated_studentinfo.standard,
+            division: updated_studentinfo.division
         }
         return data;
     }
