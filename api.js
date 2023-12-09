@@ -53,8 +53,8 @@ app.get('/getstudentinfobyname', async (req, res) => {
 //Get student's info from standard
 app.get('/getstudentinfobystandard', async (req, res) => {
     try {
-        const class_to_find = req.query.standard;
-        const result = await StudentInfo.get_student_info_by_standard(class_to_find)
+        const standard = parseInt(req.query.standard);
+        const result = await StudentInfo.get_student_info_by_standard(standard)
         res.status(200).json({ data: result })
     }
     catch (error) {
@@ -66,8 +66,8 @@ app.get('/getstudentinfobystandard', async (req, res) => {
 // Get student's info from division
 app.get('/getstudentinfobydivision', async (req, res) => {
     try {
-        const class_to_find = req.query.division;
-        const result = await StudentInfo.get_student_info_by_division(class_to_find)
+        const division = req.query.division;
+        const result = await StudentInfo.get_student_info_by_division(division)
         res.status(200).json({ data: result })
     }
     catch (error) {
