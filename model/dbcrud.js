@@ -22,66 +22,6 @@ class DatabaseCRUD {
         return StudentInfo;
     }
 
-    async get_student_info_by_roll_no(roll_no) {
-        const promise = databases.listDocuments(
-            process.env.DATABASE_ID,
-            process.env.COLLECTION_ID,
-            [
-                Query.equal('roll_no', roll_no)
-            ]
-        )
-        const studentinfo = await promise;
-        const student_info_by_roll_no = studentinfo.documents.map((studentinfo) => {
-            const { roll_no, name, standard, division } = studentinfo;
-            return { roll_no, name, standard, division };
-        })
-
-        return student_info_by_roll_no;
-    }
-
-    async get_student_info_by_name(name) {
-
-        const promise = databases.listDocuments(process.env.DATABASE_ID,
-            process.env.COLLECTION_ID,
-            [
-                Query.equal('name', name)
-            ])
-        const studentinfo = await promise;
-        const student_info_by_name = studentinfo.documents.map((studentinfo) => {
-            const { roll_no, name, standard, division } = studentinfo;
-            return { roll_no, name, standard, division };
-        })
-        return student_info_by_name;
-    }
-
-    async get_student_info_by_standard(standard) {
-        const promise = databases.listDocuments(process.env.DATABASE_ID,
-            process.env.COLLECTION_ID,
-            [
-                Query.equal('standard', standard)
-            ])
-        const studentinfo = await promise;
-        const student_info_by_class = studentinfo.documents.map((studentinfo) => {
-            const { roll_no, name, standard, division } = studentinfo;
-            return { roll_no, name, standard, division };
-        })
-        return student_info_by_class;
-    }
-
-    async get_student_info_by_division(division) {
-        const promise = databases.listDocuments(process.env.DATABASE_ID,
-            process.env.COLLECTION_ID,
-            [
-                Query.equal('division', division)
-            ])
-        const studentinfo = await promise;
-        const student_info_by_class = studentinfo.documents.map((studentinfo) => {
-            const { roll_no, name, standard, division } = studentinfo;
-            return { roll_no, name, standard, division };
-        })
-        return student_info_by_class;
-    }
-
     async save_student_info(roll_no, name, standard, division) {
         const promise = databases.createDocument(process.env.DATABASE_ID,
             process.env.COLLECTION_ID,
