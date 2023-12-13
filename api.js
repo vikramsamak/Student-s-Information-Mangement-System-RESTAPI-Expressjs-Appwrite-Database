@@ -1,5 +1,6 @@
 import Express from "express";
 import { StudentInfo } from "./model/dbcrud.js";
+import { Feedbackdb } from './model/feedbackdb.js'
 import cors from 'cors';
 const app = Express()
 const port = 2000 || process.env.PORT
@@ -88,6 +89,40 @@ app.delete('/deletestudentinfo', async (req, res) => {
     }
 })
 
+// Save Feedback to database
+app.post('/savefeedback', async (req, res) => {
+    try {
+        const feedback = req.body;
+        const result = await Feedbackdb.saveFeedback(
+            feedback.name,
+            feedback.email,
+            feedback.msg)
+
+        res.status(200)
+            .json({
+                res: "Thank You . I will get back to you as soon as posssible.",
+                data: result
+            })
+    }
+
+    catch (error) {
+        console.log(error.message)
+        res.status(500).send("Internal server error")
+    }
+})
+
+
+// Get all feedbacks 
+app.get('/getallfeedbacks', async (req, res) => {
+    try {
+        const result = await Feedbackdb.getallFeedbacks()
+        res.status(200).json({ data: result })
+    }
+    catch (error) {
+        console.error(error.message);
+        res.status(500).send("Internal server error");
+    }
+})
 
 app.listen(port, () => {
     console.log(`Student's Info API running on port ${port}`)
